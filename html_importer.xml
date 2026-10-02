@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:html="http://www.w3.org/1999/xhtml"
+     width="600" height="300"
+     viewBox="0 0 600 300">
+
+  <foreignObject x="0" y="0" width="600" height="300">
+    <html:div xmlns:html="http://www.w3.org/1999/xhtml"
+              style="font-family:Arial,sans-serif;padding:30px;">
+      <html:h2>HTML Importer</html:h2>
+      <html:input type="file" id="file" accept=".html,.htm"/>
+
+      <html:script type="application/ecmascript"><![CDATA[
+        var input = document.getElementById("file");
+
+        input.onchange = function () {
+            var file = input.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = function () {
+                var tab = window.open("about:blank", "_blank");
+
+                if (!tab) {
+                    alert("Pop-up blocked.");
+                    return;
+                }
+
+                tab.document.open();
+                tab.document.write(reader.result);
+                tab.document.close();
+            };
+
+            reader.readAsText(file);
+        };
+      ]]></html:script>
+    </html:div>
+  </foreignObject>
+</svg>
